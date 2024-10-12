@@ -18,11 +18,23 @@ app.json.compact = False
 migrate = Migrate(app, db)
 
 db.init_app(app)
+api = Api(app)
 
 
-@app.route('/')
-def index():
-    return '<h1>Code challenge</h1>'
+class Home(Resource):
+
+    def get(self):
+        response_dict = {
+            "message": "Code challenge"
+        }
+        response = make_response(
+            response_dict,
+            200
+        )
+        return response
+api.add_resource(Home, '/')
+
+
 
 
 if __name__ == '__main__':
