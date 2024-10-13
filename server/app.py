@@ -128,8 +128,46 @@ class Pizzas(Resource):
     
 api.add_resource(Pizzas, '/pizzas')
 
+class Restaurant_pizza(Resource):
+
+    def post(self):
+        data = request.get_json()
+
+        pizza_id = data['pizza_id']
+        restaurant_id = data['restaurant_id']
+        price = data['price']
 
         
+        # Validate the price
+        if  not (1 <= price <= 30):
+            response_dict = {
+                "errors": ["validation errors"]
+            }
+
+            response = make_response(
+                response_dict,
+                400
+            )
+
+            return response
+        
+    # Create new restaurant_pizza record    
+        restaurant_pizza= RestaurantPizza(price=price, pizza_id=pizza_id, restaurant_id=restaurant_id)
+
+        db.session.add(restaurant_pizza)
+        db.session.commit()
+
+        restaurant_pizza_dict = restaurant_pizza.to_dict()
+
+        response = make_response(
+            restaurant_pizza_dict,
+            201,
+        )
+        return response
+
+api.add_resource(Restaurant_pizza, '/restaurant_pizzas')
+
+
 
 
 
