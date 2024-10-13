@@ -34,7 +34,46 @@ class Home(Resource):
         return response
 api.add_resource(Home, '/')
 
+class Restaurants(Resource):
 
+    def get(self):
+        # Create a new list of dictionaries containing id, name , and address excluding the information of restaurant_pizzas from response
+        
+        response_dict_list = [
+            {
+                "id": restaurant.id,
+                "name": restaurant.name,
+                "address": restaurant.address
+
+            }
+            for restaurant in Restaurant.query.all()
+        ]
+
+        response = make_response(
+            response_dict_list,
+            200,
+        )
+        return response
+    
+api.add_resource(Restaurants, '/restaurants')
+
+class RestaurantByID(Resource):
+
+    def get(self, id):
+        restaurant = Restaurant.query.filter_by(id=id).first()
+
+        if restaurant is None:
+            response_dict ={
+                "error": "Restaurant not found" 
+            }
+            response = make_response(
+                response_dict,
+                404,
+            )
+            return response
+        
+        
+api.add_resource(RestaurantByID, '/restaurants/<int:id>')
 
 
 if __name__ == '__main__':
