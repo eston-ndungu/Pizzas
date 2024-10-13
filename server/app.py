@@ -21,7 +21,7 @@ db.init_app(app)
 api = Api(app)
 
 
-class Home(Resource):
+class Index(Resource):
 
     def get(self):
         response_dict = {
@@ -32,7 +32,8 @@ class Home(Resource):
             200
         )
         return response
-api.add_resource(Home, '/')
+    
+api.add_resource(Index, '/')
 
 class Restaurants(Resource):
 
@@ -104,9 +105,15 @@ class RestaurantByID(Resource):
         )
         return response
     
+api.add_resource(RestaurantByID, '/restaurants/<int:id>')
+
+class Pizzas(Resource):
+    
+    def get(self):
+        
 
         
-api.add_resource(RestaurantByID, '/restaurants/<int:id>')
+
 
 
 if __name__ == '__main__':
