@@ -38,7 +38,6 @@ api.add_resource(Index, '/')
 class Restaurants(Resource):
 
     def get(self):
-        # Create a new list of dictionaries containing id, name , and address excluding the information of restaurant_pizzas from response
         
         response_dict_list = [
             {
@@ -52,7 +51,7 @@ class Restaurants(Resource):
 
         response = make_response(
             response_dict_list,
-            200,
+            200
         )
         return response
     
@@ -69,7 +68,7 @@ class RestaurantByID(Resource):
             }
             response = make_response(
                 response_dict,
-                404,
+                404
             )
             return response
         
@@ -77,7 +76,7 @@ class RestaurantByID(Resource):
         
         response = make_response(
             restaurant_dict,
-            200,
+            200
         )
         return response
     
@@ -122,7 +121,7 @@ class Pizzas(Resource):
 
         response = make_response(
             response_dict_list,
-            200,
+            200
         )
         return response
     
@@ -161,7 +160,7 @@ class Restaurant_pizza(Resource):
 
         response = make_response(
             restaurant_pizza_dict,
-            201,
+            201
         )
         return response
 
