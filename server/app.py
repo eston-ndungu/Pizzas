@@ -79,6 +79,32 @@ class RestaurantByID(Resource):
             200,
         )
         return response
+    
+    # delete route
+    def delete(self, id):
+        restaurant = Restaurant.query.filter_by(id=id).first()
+
+        if restaurant is None:
+            response_dict = {
+                "error": "Restaurant not found" 
+            }
+            response = make_response(
+                response_dict,
+                404
+            )
+
+        db.session.delete(restaurant)
+        db.session.commit()
+
+        response_dict = {}
+
+        response = make_response(
+            response_dict,
+            204
+        )
+        return response
+    
+
         
 api.add_resource(RestaurantByID, '/restaurants/<int:id>')
 
