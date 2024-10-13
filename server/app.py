@@ -72,6 +72,13 @@ class RestaurantByID(Resource):
             )
             return response
         
+        restaurant_dict = restaurant.to_dict()
+        
+        response = make_response(
+            restaurant_dict,
+            200,
+        )
+        return response
         
 api.add_resource(RestaurantByID, '/restaurants/<int:id>')
 
